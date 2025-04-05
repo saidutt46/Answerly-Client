@@ -1,6 +1,12 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/qa');
+  };
+
   return (
     <>
       <section className="hero">
@@ -12,10 +18,13 @@ const Home = () => {
         </p>
         
         <div className="hero-buttons">
-          <button className="btn btn-primary">
+          <button 
+            className="btn btn-primary"
+            onClick={handleGetStarted}
+          >
             Get Started
           </button>
-          <button className="btn btn-outline">
+          <button className="btn btn-outline" onClick={() => navigate('/features')}>
             Learn More
           </button>
         </div>

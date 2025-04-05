@@ -6,14 +6,14 @@ const EmptyState: React.FC = () => {
       <div className="empty-icon">💬</div>
       <h3>No questions yet</h3>
       <p>Upload a document or enter text, then ask a question to get started.</p>
-      <p className="empty-suggestions">
-        Try asking questions like:
+      <div className="empty-suggestions">
+        <p>Try asking questions like:</p>
         <ul>
           <li>"What are the main points of this document?"</li>
           <li>"Summarize the key findings."</li>
           <li>"What does the document say about [specific topic]?"</li>
         </ul>
-      </p>
+      </div>
     </div>
   );
 };

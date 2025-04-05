@@ -4,12 +4,14 @@ interface DocumentPreviewProps {
   context: string | null;
   contextSource: 'file' | 'text' | null;
   contextFile: File | null;
+  onReplaceContext?: () => void;
 }
 
 const DocumentPreview: React.FC<DocumentPreviewProps> = ({ 
   context, 
   contextSource, 
-  contextFile 
+  contextFile,
+  onReplaceContext
 }) => {
   // Get the source display name
   const getSourceName = () => {
@@ -25,7 +27,7 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({
   const getDocumentStats = () => {
     if (contextSource === 'file' && contextFile) {
       return {
-        type: contextFile.type,
+        type: contextFile.type || 'Document',
         size: formatFileSize(contextFile.size),
         modified: new Date(contextFile.lastModified).toLocaleString()
       };
@@ -53,7 +55,12 @@ const DocumentPreview: React.FC<DocumentPreviewProps> = ({
     <div className="document-preview">
       <div className="document-header">
         <h3>{getSourceName()}</h3>
-        <button className="replace-button">Replace</button>
+        <button 
+          className="replace-button"
+          onClick={onReplaceContext}
+        >
+          Replace
+        </button>
       </div>
       
       {stats && (

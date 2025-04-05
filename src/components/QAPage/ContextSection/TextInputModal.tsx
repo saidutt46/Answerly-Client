@@ -38,6 +38,7 @@ const TextInputModal: React.FC<TextInputModalProps> = ({ onTextSubmit, onModalCl
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste or type your text here..."
             rows={15}
+            autoFocus
           />
           
           <div className="modal-footer">

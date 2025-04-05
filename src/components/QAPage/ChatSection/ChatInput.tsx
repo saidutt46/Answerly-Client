@@ -1,5 +1,5 @@
 // ChatSection/ChatInput.tsx
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, KeyboardEvent } from 'react';
 
 interface Model {
   id: string;
@@ -12,17 +12,37 @@ interface ChatInputProps {
   availableModels: Model[];
   selectedModel: string;
   onModelChange: (modelId: string) => void;
+  isLoading?: boolean;
 }
 
-const ChatInput = ({ onSubmit, availableModels, selectedModel, onModelChange }: ChatInputProps) => {
+const ChatInput = ({ 
+  onSubmit, 
+  availableModels, 
+  selectedModel, 
+  onModelChange,
+  isLoading = false
+}: ChatInputProps) => {
   const [question, setQuestion] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (question.trim()) {
+    if (question.trim() && !isLoading) {
       onSubmit(question);
       setQuestion('');
+      setIsExpanded(false);
+    }
+  };
+  
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    // Submit on Enter without Shift key
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (question.trim() && !isLoading) {
+        onSubmit(question);
+        setQuestion('');
+        setIsExpanded(false);
+      }
     }
   };
   
@@ -35,8 +55,10 @@ const ChatInput = ({ onSubmit, availableModels, selectedModel, onModelChange }: 
           onChange={(e) => setQuestion(e.target.value)}
           onFocus={() => setIsExpanded(true)}
           onBlur={() => question === '' && setIsExpanded(false)}
+          onKeyDown={handleKeyDown}
           placeholder="Ask a question about your document..."
           rows={isExpanded ? 3 : 1}
+          disabled={isLoading}
         />
         
         <div className="input-controls">
@@ -45,6 +67,7 @@ const ChatInput = ({ onSubmit, availableModels, selectedModel, onModelChange }: 
               value={selectedModel} 
               onChange={(e) => onModelChange(e.target.value)}
               aria-label="Select AI model"
+              disabled={isLoading}
             >
               {availableModels.map(model => (
                 <option key={model.id} value={model.id}>
@@ -57,9 +80,9 @@ const ChatInput = ({ onSubmit, availableModels, selectedModel, onModelChange }: 
           <button 
             type="submit" 
             className="submit-button"
-            disabled={!question.trim()}
+            disabled={!question.trim() || isLoading}
           >
-            Send
+            {isLoading ? 'Processing...' : 'Send'}
           </button>
         </div>
       </div>

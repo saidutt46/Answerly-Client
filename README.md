@@ -1,54 +1,73 @@
-# React + TypeScript + Vite
+# Answerly
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern question-answering system leveraging transformer-based models to extract precise answers from documents with state-of-the-art accuracy.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Answerly integrates advanced NLP capabilities with an intuitive interface, enabling rapid information extraction from text documents. The system employs a multi-model architecture to optimize for both speed and accuracy across diverse document types.
 
-## Expanding the ESLint configuration
+## Technical Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- React 19.0 + TypeScript
+- Responsive CSS architecture, no external dependencies
+- Component-driven architecture with atomic design principles
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Backend
+- FastAPI with asynchronous request handling
+- Optimized model loading with platform-specific acceleration
+- Intelligent text chunking and document processing pipeline
+
+### Model Architecture
+- Transformer-based QA models (BERT variants)
+- Model selection system with performance optimization
+- Platform-aware acceleration (CUDA, MPS, CPU)
+
+## Core Capabilities
+
+- Text-based and document-based question answering
+- Multi-model inference with confidence scoring
+- Dynamic text chunking for large documents
+- PDF processing with OCR fallback
+- Cross-platform deployment with hardware acceleration
+
+## Development Status
+
+Initial architecture implementation. Currently focusing on frontend system architecture, API integration patterns, and UX design. Backend systems have been tested with sample documents and demonstrate expected behavior across multiple model types.
+
+## Development Roadmap
+
+| Phase | Focus | Status |
+|-------|-------|--------|
+| 1 | System Architecture | Completed |
+| 2 | Core Backend Services | Completed |
+| 3 | Frontend Foundation | In Progress |
+| 4 | Advanced Text Processing | Planned |
+| 5 | Performance Optimization | Planned |
+| 6 | Extended Model Support | Planned |
+
+## Implementation Notes
+
+The system is built with scalability in mind, utilizing a microservice architecture that separates document processing, model management, and request handling. Text processing follows a staged approach with progressive refinement to optimize for both accuracy and latency.
+
+## API Documentation
+
+API documentation will be auto-generated at `/api/docs` once the system is in running state.
+
+## Local Development
+
+```bash
+# Clone repository
+git clone https://github.com/your-org/answerly-frontend.git
+
+# Install dependencies
+cd answerly-frontend
+npm install
+
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## License
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Copyright © 2025. All rights reserved.

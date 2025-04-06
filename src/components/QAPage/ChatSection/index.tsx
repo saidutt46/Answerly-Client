@@ -3,23 +3,33 @@ import ChatHistory from './ChatHistory';
 import ChatInput from './ChatInput';
 import EmptyState from './EmptyState';
 
+interface ChatMessage {
+  type: 'question' | 'answer';
+  content: string;
+  metadata?: {
+    confidence?: number;
+    processingTime?: number;
+    modelUsed?: string;
+  };
+}
+
 interface ChatSectionProps {
-  chatHistory: Array<{
-    type: 'question' | 'answer';
-    content: string;
-    metadata?: {
-      confidence?: number;
-      processingTime?: number;
-      modelUsed?: string;
-    };
-  }>;
+  chatHistory: ChatMessage[];
   onQuestionSubmit: (question: string) => void;
   availableModels: Array<{ id: string; name: string; description?: string }>;
   selectedModel: string;
   onModelChange: (modelId: string) => void;
+  isLoading?: boolean;
 }
 
-const ChatSection = ({ chatHistory, onQuestionSubmit, availableModels, selectedModel, onModelChange }: ChatSectionProps) => {
+const ChatSection = ({ 
+  chatHistory, 
+  onQuestionSubmit, 
+  availableModels, 
+  selectedModel, 
+  onModelChange,
+  isLoading = false
+}: ChatSectionProps) => {
   return (
     <div className="chat-section">
       <div className="chat-history-container">
@@ -35,6 +45,7 @@ const ChatSection = ({ chatHistory, onQuestionSubmit, availableModels, selectedM
           availableModels={availableModels}
           selectedModel={selectedModel}
           onModelChange={onModelChange}
+          isLoading={isLoading}
         />
       </div>
     </div>

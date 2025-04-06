@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import ChatSection from '../components/QAPage/ChatSection';
 import ContextSection from '../components/QAPage/ContextSection';
+import '../styles/qa-page.css'; // Import the QA page styles
 
-// Define proper TypeScript interfaces
+// Define TypeScript interfaces
 interface ChatMessage {
   type: 'question' | 'answer';
   content: string;
@@ -27,6 +28,7 @@ const QAPage: React.FC = () => {
   
   // State for chat
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
   // State for models
   const [availableModels, setAvailableModels] = useState<Model[]>([]);
@@ -66,10 +68,20 @@ const QAPage: React.FC = () => {
     setContextSource('text');
   };
   
+  // Handle context replacement
+  const handleReplaceContext = () => {
+    setContext(null);
+    setContextFile(null);
+    setContextSource(null);
+  };
+  
   // Handle question submission
   const handleQuestionSubmit = (question: string) => {
     // Add question to chat history
     setChatHistory(prev => [...prev, { type: 'question', content: question }]);
+    
+    // Set loading state
+    setIsLoading(true);
     
     // API call to get answer based on contextSource - to be implemented
     // For now, just show a dummy response
@@ -78,7 +90,7 @@ const QAPage: React.FC = () => {
         ...prev, 
         { 
           type: 'answer', 
-          content: 'This is a placeholder answer. The actual API integration will be implemented next.',
+          content: 'This is a placeholder answer that simulates what the AI would generate based on the document context. The answer would typically be more detailed and directly related to the question asked.',
           metadata: {
             confidence: 0.85,
             processingTime: 0.5,
@@ -86,6 +98,8 @@ const QAPage: React.FC = () => {
           }
         }
       ]);
+      
+      setIsLoading(false);
     }, 1000);
   };
   
@@ -98,6 +112,7 @@ const QAPage: React.FC = () => {
           availableModels={availableModels}
           selectedModel={selectedModel}
           onModelChange={setSelectedModel}
+          isLoading={isLoading}
         />
       </div>
       <div className="qa-page-right">
@@ -107,6 +122,7 @@ const QAPage: React.FC = () => {
           contextFile={contextFile}
           onFileUpload={handleFileUpload}
           onTextInput={handleTextInput}
+          onReplaceContext={handleReplaceContext}
         />
       </div>
     </div>

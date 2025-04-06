@@ -6,12 +6,19 @@
     --color-light: #E5E5E5;
     --color-white: #FFFFFF;
     
+    /* New color palette */
+    --color-rose: #F72585;
+    --color-grape: #7209B7;
+    --color-zaffre: #3A0CA3;
+    --color-neon-blue: #4361EE;
+    --color-vivid-sky-blue: #4CC9F0;
+    
     /* UI colors */
     --color-background: var(--color-white);
     --color-text: var(--color-black);
     --color-primary-button: var(--color-black);
     --color-secondary-button: var(--color-navy);
-    --color-accent-button: var(--color-orange);
+    --color-accent-button: var(--color-neon-blue);
     --color-border: rgba(0, 0, 0, 0.1);
     --color-card-shadow: rgba(0, 0, 0, 0.05);
   }

@@ -10,9 +10,6 @@ interface EmptyStateProps {
 const EmptyState: React.FC<EmptyStateProps> = ({ onFileUpload, onTextButtonClick }) => {
   return (
     <div className="context-empty-state">
-      <h3>Add Your Content</h3>
-      <p>Upload a document or enter text to get started</p>
-      
       <div className="upload-options">
         <FileUploader onFileUpload={onFileUpload} />
         
